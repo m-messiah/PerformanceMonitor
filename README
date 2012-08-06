@@ -1,6 +1,85 @@
-Performance Monitor
+**************************************************************
+**	                PerformanceMonitor						**
+**															**
+**			Author: 		M. Muzafarov					**
+**			Date:			6 August 2012					**
+**															**
+**															**
+**************************************************************
 
-It is a tool for monitoring, how long can be alive your services.
+1. Description
 
-Tool is using RRD files, collected by Collectd and generate HTML table with values of today and deltas for history interval from last.
+PerformanceMonitor is a tool for monitoring how long can be alive your services and your servers.
 
+Tool is using RRD files, collected by Collectd, and generate HTML table with values of today and deltas for history interval from last.
+
+2. System Requirements
+
+	* Unix-based OS
+	* Python 2.7+
+	* Python modules:
+		** datetime
+		** os
+		** sys
+		** re
+		** time
+		** cgi
+	* Web-Server (html and javascript support)
+
+3. Install
+
+You can clone all files to / on your OS. (full pathes are presented in repository) or copy each file separately.
+
+4. Settings
+
+	4.1 /etc/performance
+		4.1.1 intervals.conf
+			It`s a file with only two parameters: 
+				history - how many days to use from last
+				interval - length of intervals of discretization of time.
+		4.1.2 limits.conf
+			It`s a file with limits for each metric. 
+			Syntax is:
+				>metric1_name
+				service1_name value1
+				service2_name value2
+				All value3
+				>metric2_name
+				All value4
+			Where value* is a number, and word "All" will apply limit for all services with this metric.
+		4.1.3 machines
+			It`s a file with list of monitored hosts.
+		4.1.4 metrics.conf
+			It`s a file with list of metrics.
+			Order of metrics same as will be in HTML page.
+			Syntax is:
+				full_metric_name number
+			Where full_metric_name is concatenate from rrd-filename (without extension), slash and metric_name.
+			Number can be:
+				* 0 for percents
+				* 1 for bytes
+				* 2 for units
+		4.1.5 services.conf
+			It`s a file with categories of services (for groups)
+			Syntax is:
+				>category_name1
+				service1
+				service2
+				>category_name2
+				service3
+				service4
+	
+	4.2 Shedule
+		For automatic work of tool, add rule for crontab to run script makeHTML.sh
+		Example:
+			10 23 * * * root /etc/performance/makeHTML.sh 
+		Will run script every day at 23:10
+	
+5. Contacts
+
+Author:
+	Maxim Muzafarov
+	icq: 3373655
+	vk.com/m.muzafarov
+	messiah.ks8.ru
+	twitter.com/m_messiah
