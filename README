@@ -1,0 +1,6 @@
+Performance Monitor
+
+It is a tool for monitoring, how long can be alive your services.
+
+Tool is using RRD files, collected by Collectd and generate HTML table with values of today and deltas for history interval from last.
+
